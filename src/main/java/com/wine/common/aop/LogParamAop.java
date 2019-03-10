@@ -26,6 +26,7 @@ public class LogParamAop {
 
         String message = "aop[" + point.getSignature().getDeclaringTypeName() + "]";
 
+        String a = "";
         return new Object();
     }
 }

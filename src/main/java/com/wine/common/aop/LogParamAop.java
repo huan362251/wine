@@ -29,6 +29,7 @@ public class LogParamAop {
         String a = "";
         String b = "abc";
         String c = "abc";
+        String d = "a";
         return new Object();
     }
 }

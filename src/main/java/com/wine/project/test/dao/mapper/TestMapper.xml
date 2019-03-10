@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wine.project.test.dao.TestDao">
+
+    <!--测试数据用-->
+    <select id="queryAbc" resultType="com.wine.project.test.dto.Abc">
+        select a.ID,a.AGE,a.NAME from ABC a
+    </select>
+
+
+</mapper>

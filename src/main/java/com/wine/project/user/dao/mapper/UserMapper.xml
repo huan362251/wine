@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wine.project.user.dao.UserDao">
+
+    <!--通过账号查询角色-->
+    <select id="queryRoleByUser" parameterType="java.lang.String" resultType="com.wine.project.user.dto.Role">
+        select ro.*
+          from user_account ua, role ro, user_role ur
+         where ua.user_id = ur.user_id
+           and ur.role_id = ro.role_id
+           and ua.user_account = #{userAccount,jdbcType = VARCHAR}
+    </select>
+
+    <!--通过角色类型查询菜单-->
+    <select id="queryMenuByRole" parameterType="java.lang.String" resultType="com.wine.project.user.dto.Menu">
+        select me.*
+          from role r, role_menu ur, menu me
+         where r.role_id = ur.role_id
+           and me.menu_id = ur.menu_id
+           and r.role_type = #{roleType,jdbcType = VARCHAR}
+    </select>
+
+    <!--通过账号查询账户信息-->
+    <select id="queryUserAccountByAccount" resultType="com.wine.project.user.dto.UserAccount">
+        select * from user_account ua where ua.user_account = #{userAccount,jdbcType = VARCHAR}
+    </select>
+
+</mapper>

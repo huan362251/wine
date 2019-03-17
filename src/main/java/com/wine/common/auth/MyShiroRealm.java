@@ -31,6 +31,7 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        System.out.println("进入方法：doGetAuthorizationInfo");
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         UserAccount userAccount = (UserAccount)principals.getPrimaryPrincipal();
         RoleResDTO roleResDTO = service.queryRoleByUser(userAccount.getUserAccount());
@@ -41,7 +42,7 @@ public class MyShiroRealm extends AuthorizingRealm {
                 simpleAuthorizationInfo.addStringPermission(menu.getMenuCode());
             }
         }
-
+        System.out.println("离开方法：doGetAuthorizationInfo");
         return simpleAuthorizationInfo;
     }
 
@@ -53,14 +54,15 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        System.out.println("进入方法：doGetAuthenticationInfo");
         String userAccount = (String)token.getPrincipal();
         UserAccount user = dao.queryUserAccountByAccount(userAccount);
         if(null == user){
             return null;
         }
 
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user,user.getUserPassword(),getName());
-
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUserAccount(),user.getUserPassword(),getName());
+        System.out.println("出去方法：doGetAuthenticationInfo");
         return simpleAuthenticationInfo;
     }
 }

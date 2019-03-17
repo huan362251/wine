@@ -1,13 +1,14 @@
 package com.wine.project.user.service.impl;
 
 import com.wine.common.code.CodeMsg;
+import com.wine.common.message.ResponseDTO;
 import com.wine.common.verify.Verify;
 import com.wine.project.user.dao.UserDao;
-import com.wine.project.user.dto.Menu;
-import com.wine.project.user.dto.MenuResDTO;
-import com.wine.project.user.dto.Role;
-import com.wine.project.user.dto.RoleResDTO;
+import com.wine.project.user.dto.*;
 import com.wine.project.user.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -59,5 +60,22 @@ public class UserServiceImpl implements UserService {
         menuResDTO.setMenus(menus);
 
         return menuResDTO;
+    }
+
+    @Override
+    public ResponseDTO login(LoginReqDTO dto) {
+
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        Subject subject = SecurityUtils.getSubject();
+
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
+                dto.getUserAccount(),
+                dto.getPassword()
+        );
+
+        subject.login(usernamePasswordToken);
+
+        return responseDTO;
     }
 }

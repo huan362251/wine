@@ -1,5 +1,7 @@
 package com.wine.project.user.service;
 
+import com.wine.common.message.ResponseDTO;
+import com.wine.project.user.dto.LoginReqDTO;
 import com.wine.project.user.dto.MenuResDTO;
 import com.wine.project.user.dto.RoleResDTO;
 
@@ -18,4 +20,10 @@ public interface UserService {
      * @return
      */
     MenuResDTO queryMenuByRole(String roleType);
+
+    /**
+     *登录校验
+     * @return
+     */
+    ResponseDTO login(LoginReqDTO dto);
 }

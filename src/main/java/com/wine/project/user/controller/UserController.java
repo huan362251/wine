@@ -2,6 +2,7 @@ package com.wine.project.user.controller;
 
 import com.wine.common.message.ResponseDTO;
 import com.wine.project.user.dto.LoginReqDTO;
+import com.wine.project.user.dto.RegisterReqDTO;
 import com.wine.project.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date Created by  2019/3/17 17:20
  **/
 @RestController
+@RequestMapping(value = "/userController")
 public class UserController {
 
     private Logger logger =  LoggerFactory.getLogger(UserController.class);
@@ -32,5 +34,14 @@ public class UserController {
 
         return responseDTO;
 
+    }
+
+    @PostMapping(value = "/register.do",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseDTO register(@RequestBody RegisterReqDTO dto){
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        responseDTO = userService.register(dto);
+
+        return responseDTO;
     }
 }

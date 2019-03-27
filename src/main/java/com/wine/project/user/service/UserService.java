@@ -3,6 +3,7 @@ package com.wine.project.user.service;
 import com.wine.common.message.ResponseDTO;
 import com.wine.project.user.dto.LoginReqDTO;
 import com.wine.project.user.dto.MenuResDTO;
+import com.wine.project.user.dto.RegisterReqDTO;
 import com.wine.project.user.dto.RoleResDTO;
 
 public interface UserService {
@@ -26,4 +27,11 @@ public interface UserService {
      * @return
      */
     ResponseDTO login(LoginReqDTO dto);
+
+    /**
+     * 注册账号
+     * @param dto
+     * @return
+     */
+    ResponseDTO register(RegisterReqDTO dto);
 }

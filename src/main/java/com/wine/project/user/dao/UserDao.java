@@ -1,8 +1,6 @@
 package com.wine.project.user.dao;
 
-import com.wine.project.user.dto.Menu;
-import com.wine.project.user.dto.Role;
-import com.wine.project.user.dto.UserAccount;
+import com.wine.project.user.dto.*;
 
 import java.util.List;
 
@@ -28,4 +26,22 @@ public interface UserDao {
      * @return
      */
     UserAccount queryUserAccountByAccount(String userAccount);
+
+    /**
+     * 新增账号
+     * @param userAccount
+     */
+    void insertUserAccount(UserAccount userAccount);
+
+    /**
+     * 新增角色
+     * @param role
+     */
+    void insertUserRole(UserRole role);
+
+    /**
+     * 新增用户信息
+     * @param userMessageDTO
+     */
+    void insertUserMessage(UserMessageDTO userMessageDTO);
 }

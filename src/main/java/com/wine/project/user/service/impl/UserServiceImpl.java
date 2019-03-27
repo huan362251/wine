@@ -6,9 +6,9 @@ import com.wine.common.verify.Verify;
 import com.wine.project.user.dao.UserDao;
 import com.wine.project.user.dto.*;
 import com.wine.project.user.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +17,8 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserDao userDao;
@@ -67,15 +69,29 @@ public class UserServiceImpl implements UserService {
 
         ResponseDTO responseDTO = new ResponseDTO();
 
-        Subject subject = SecurityUtils.getSubject();
+        return responseDTO;
+    }
 
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
-                dto.getUserAccount(),
-                dto.getPassword()
-        );
-
-        subject.login(usernamePasswordToken);
-
+    @Override
+    public ResponseDTO register(RegisterReqDTO dto) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        try {
+            //新增账号
+            UserAccount userAccount = new UserAccount();
+            BeanUtils.copyProperties(dto, userAccount);
+            userDao.insertUserAccount(userAccount);
+            //新增角色
+            UserRole userRole = new UserRole();
+            BeanUtils.copyProperties(dto, userRole);
+            userDao.insertUserRole(userRole);
+            //新增账号信息
+            UserMessageDTO userMessageDTO = new UserMessageDTO();
+            BeanUtils.copyProperties(dto, userMessageDTO);
+            userDao.insertUserMessage(userMessageDTO);
+        }catch (Exception e){
+            logger.info(this.getClass().getName(),"注册方法失败");
+            CodeMsg.EXCEPTION.setResponse(responseDTO);
+        }
         return responseDTO;
     }
 }

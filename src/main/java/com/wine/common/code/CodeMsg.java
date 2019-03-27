@@ -4,6 +4,7 @@ import com.wine.common.message.ResponseDTO;
 
 public enum CodeMsg {
     SUCCESS("000000","成功"),
+    EXCEPTION("999999","运行方法异常"),
     PARAM_IS_NULL("000001","参数不能为空"),
     ROLE_IS_NULL("000002","当前账号不存在角色，请先添加"),
     MENU_IS_NULL("000003","当前角色不存在菜单，请先添加");

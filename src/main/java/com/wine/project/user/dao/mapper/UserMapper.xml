@@ -25,4 +25,58 @@
         select * from user_account ua where ua.user_account = #{userAccount,jdbcType = VARCHAR}
     </select>
 
+    <!--新增用户-->
+    <insert id="insertUserAccount" parameterType="com.wine.project.user.dto.UserAccount">
+        insert into user_account
+          (user_name,
+           user_account,
+           create_user,
+           create_date,
+           update_user,
+           update_date,
+           user_password)
+        values
+          (#{userName,jdbcType = VARCHAR},
+           #{userAccount,jdbcType = VARCHAR},
+           #{createuser,jdbcType = VARCHAR},
+           sysdate,
+           #{updateuser,jdbcType = VARCHAR},
+           sysdate,
+           #{userpassword,jdbcType = VARCHAR})
+    </insert>
+
+    <!--新增角色-->
+    <insert id="insertUserRole" parameterType="com.wine.project.user.dto.UserRole">
+        insert into user_role
+          (user_id, role_id, create_user, create_date, update_user, update_date)
+        values
+          (#{userId,jdbcType = VARCHAR},
+           #{roleId,jdbcType = VARCHAR},
+           #{createuser,jdbcType = VARCHAR},
+           sysdate,
+           #{updateuser,jdbcType = VARCHAR},
+           sysdate
+           )
+    </insert>
+
+    <!--新增用户信息-->
+    <insert id="insertUserMessage" parameterType="com.wine.project.user.dto.UserMessageDTO">
+        insert into user_message
+          (user_id,
+           iphone,
+           id_number,
+           create_user,
+           create_date,
+           update_user,
+           update_date)
+        values
+          (#{userId,jdbcType = INTEGER},
+           #{iphone,jdbcType = VARCHAR},
+           #{idNumber,jdbcType = VARCHAR},
+           #{createuser,jdbcType = VARCHAR},
+           sysdate,
+           #{updateuser,jdbcType = VARCHAR},
+           sysdate
+           )
+    </insert>
 </mapper>

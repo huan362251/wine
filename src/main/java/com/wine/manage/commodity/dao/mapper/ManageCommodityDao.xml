@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wine.manage.commodity.dao.ManageCommodityDao">
+
+    <!--新增商品基础信息-->
+    <insert id="insertManageCommodityBaseInfo" parameterType="com.wine.manage.commodity.dto.CommodityDTO">
+        <selectKey resultType="java.lang.String" order = "BEFORE" keyProperty="commodityBaseinfoId">
+            select seq_commodity_baseInfo.nextval from dual
+        </selectKey>
+        insert into commodity_baseInfo(
+           Commodity_Baseinfo_Id,
+           Commodity_Name,
+           Commodity_Code,
+           Commodity_Kind,
+           Commodity_Quantity)
+        values(
+          #{commodityBaseinfoId,jdbcType = VARCHAR},
+          #{commodityName,jdbcType = VARCHAR},
+          #{commodityCode,jdbcType = VARCHAR},
+          #{commodityKind,jdbcType = VARCHAR},
+          #{commodityQuantity,jdbcType = INTEGER}
+        )
+    </insert>
+
+    <!--新增商品详情-->
+    <insert id="insertManageCommodityDetail" parameterType="com.wine.manage.commodity.dto.CommodityDTO">
+        <selectKey resultType="java.lang.String" order = "BEFORE" keyProperty="commodityDetailId">
+            select seq_commodity_detail.nextval from dual
+        </selectKey>
+        insert into commodity_detail
+          (
+           commodity_detail_Id,
+           commodity_baseinfo_id,
+           commodity_weight,
+           commodity_origin,
+           commodity_capacity,
+           commodity_degree,
+           commodity_pack,
+           order_type)
+        values
+          (
+           #{commodityDetailId,jdbcType = VARCHAR},
+           #{commodityBaseinfoId,jdbcType = VARCHAR},
+           #{commodityWeight,jdbcType = INTEGER},
+           #{commodityOrigin,jdbcType = VARCHAR},
+           #{commodityCapacity,jdbcType = VARCHAR},
+           #{commodityDegree,jdbcType = INTEGER},
+           #{commodityPack,jdbcType = VARCHAR},
+           #{orderType,jdbcType = VARCHAR}
+           )
+
+    </insert>
+
+    <!--删除商品详情描述-->
+    <update id="deleteCommodityDetail" parameterType="java.lang.String">
+        update commodity_detail sd
+           set sd.is_del = 'N'
+         where sd.commodity_baseinfo_id = #{commodityBaseinfoId,jdbcType = VARCHAR}
+    </update>
+    <!--删除商品基础信息表-->
+    <update id="deleteCommodityBaseInfo" parameterType="java.lang.String">
+        update commodity_baseinfo cb
+           set cb.is_del = 'N'
+         where cb.commodity_baseinfo_id = #{commodityBaseinfoId,jdbcType = VARCHAR}
+    </update>
+</mapper>

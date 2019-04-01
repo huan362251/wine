@@ -7,7 +7,7 @@ public class Verify {
     /**
      * 校验当前list为空
      */
-    public static boolean isNull(List<?> list){
+    public static boolean isNullList(List<?> list){
         if(null == list || list.size()==0){
             return Boolean.TRUE;
         }
@@ -19,10 +19,24 @@ public class Verify {
      * @param list
      * @return
      */
-    public static boolean isNotNull(List<?> list){
+    public static boolean isNotNullList(List<?> list){
         if(null == list || list.size() ==0){
             return Boolean.FALSE;
         }
         return Boolean.TRUE;
+    }
+
+    /**
+     * 校验当前对象是否为空
+     * @param obj
+     * @return
+     */
+    public static boolean isNull(Object obj){
+
+        if(null == obj ){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+
     }
 }

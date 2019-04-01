@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
         List<Role> roles = userDao.queryRoleByUser(userAccount);
 
-        if(Verify.isNull(roles)){
+        if(Verify.isNullList(roles)){
             CodeMsg.ROLE_IS_NULL.setResponse(roleResDTO);
             return roleResDTO;
         }
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         }
 
         List<Menu> menus = userDao.queryMenuByRole(roleType);
-        if(Verify.isNull(menus)){
+        if(Verify.isNullList(menus)){
             CodeMsg.MENU_IS_NULL.setResponse(menuResDTO);
             return menuResDTO;
         }
